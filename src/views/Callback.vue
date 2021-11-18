@@ -21,13 +21,9 @@ export default {
     }
   },
   created() {
-    console.log(this.$store.state.authState);
-    console.log(this.state);
     if (this.goodState) {
       this.$store.commit("setAuthorization", this.code)
     }
-    console.log(this.$store.state.authorization);
-    console.log(this.code);
   }
 }
 </script>
