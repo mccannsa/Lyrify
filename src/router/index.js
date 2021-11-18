@@ -1,26 +1,21 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "../views/Login.vue"
-import Home from "../views/Home.vue"
+import Callback from "../views/Callback.vue"
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/login",
+    path: "/",
     name: "Login",
     component: Login,
   },
   {
-    path: "/",
-    name: "Home",
-    component: Home
-  },
-  // {
-  //   path: "/nowPlaying",
-  //   name: "nowPlaying",
-  //   component: ""
-  // }
+    path: "/callback",
+    name: "callback",
+    component: Callback
+  }
 ];
 
 const router = new VueRouter({
