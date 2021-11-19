@@ -40,6 +40,31 @@ export default {
         `redirect_uri=${context.state.redirect_uri}&` +
         `state=${authState}`;
     },
+    async requestToken(context) {
+      var form = {
+          code: context.state.authorization,
+          redirect_uri: context.state.redirect_uri,
+          grant_type: 'authorization_code'
+      };
+      const data = qs.stringify(form)
+
+      var authOptions = {
+        headers: {
+          'Authorization': 'Basic ' + Buffer.from(`${context.state.client_id}:${context.state.client_secret}`, "utf-8").toString('base64'),
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        json: true
+      };
+
+      await axios.post('https://accounts.spotify.com/api/token', data, authOptions)
+      .then((res) => {
+        context.commit("setToken", res.data.access_token);
+        context.commit("setRefreshToken", res.data.refresh_token);
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+    },
     requestRefreshToken: async (context) => {
       var form = {
         refresh_token: context.state.refreshToken,
