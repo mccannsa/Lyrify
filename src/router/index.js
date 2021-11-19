@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "../views/Login.vue"
 import Callback from "../views/Callback.vue"
+import Playing from "../views/Playing.vue"
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,11 @@ const routes = [
     path: "/callback",
     name: "callback",
     component: Callback
+  },
+  {
+    path: "/playing",
+    name: "playing",
+    component: Playing
   }
 ];
 

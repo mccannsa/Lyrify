@@ -15,13 +15,13 @@ export default {
   methods: {
     requestAuthorization() {
       this.$store.commit("setAuthState", this.state);
-      let scope = "user-read-currently-playing user-read-recently-played";
-      window.open("https://accounts.spotify.com/authorize?" +
+      let scope = "user-read-private user-read-currently-playing user-read-recently-played";
+      window.location.href = "https://accounts.spotify.com/authorize?" +
         `response_type=code&` +
         `client_id=${this.$store.state.client_id}&` +
         `scope=${scope}&` +
         `redirect_uri=${this.$store.state.redirect_uri}&` +
-        `state=${this.state}`, "_target");
+        `state=${this.state}`;
       this.$router.push("/callback")
     },
     generateRandomString(length) {
