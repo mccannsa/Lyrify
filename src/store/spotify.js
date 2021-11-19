@@ -10,6 +10,12 @@ export default {
     authState: "",
     token: "",
     refreshToken: "",
+    currentlyPlaying: {
+      artists: [{
+        name: ""
+      }],
+      name: ""
+    },
     displayName: ""
   },
   mutations: {
@@ -24,6 +30,9 @@ export default {
     },
     setRefreshToken: (state, t) => {
       state.refreshToken = t;
+    },
+    setCurrentlyPlaying: (state, track) => {
+      state.currentlyPlaying = track;
     },
     setDisplayName: (state, n) => {
       state.displayName = n;
@@ -65,7 +74,7 @@ export default {
         console.error(error);
       })
     },
-    requestRefreshToken: async (context) => {
+    async requestRefreshToken (context) {
       var form = {
         refresh_token: context.state.refreshToken,
         grant_type: "refresh_token"
@@ -89,6 +98,21 @@ export default {
       .catch((error) => {
         console.error(error);
       })
+    },
+    async getCurrentlyPlaying(context) {
+      await axios.get("https://api.spotify.com/v1/me/player/currently-playing",
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${context.state.token}`
+          }
+        }
+      )
+      .then((res) => {
+        context.commit("setCurrentlyPlaying", res.data.item);
+      })
+      .catch((err) => {console.error(err)})
     },
     getDisplayName: async (context) => {
       await axios.get("https://api.spotify.com/v1/me",
