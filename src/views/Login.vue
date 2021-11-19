@@ -1,5 +1,7 @@
 <template>
   <div class="login">
+    <h2>Welcome to Lyrify!</h2>
+    <p><i>Get lyrics to what you're listening to on Spotify.</i></p>
     <button @click="requestAuthorization()">Login to Spotify</button>
   </div>
 </template>
@@ -18,9 +20,9 @@ export default {
       let scope = "user-read-private user-read-currently-playing user-read-recently-played";
       window.location.href = "https://accounts.spotify.com/authorize?" +
         `response_type=code&` +
-        `client_id=${this.$store.state.client_id}&` +
+        `client_id=${this.$store.state.spotify.client_id}&` +
         `scope=${scope}&` +
-        `redirect_uri=${this.$store.state.redirect_uri}&` +
+        `redirect_uri=${this.$store.state.spotify.redirect_uri}&` +
         `state=${this.state}`;
       this.$router.push("/callback")
     },

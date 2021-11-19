@@ -20,7 +20,7 @@ export default {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: `Bearer ${this.$store.state.token}`
+            Authorization: `Bearer ${this.$store.state.spotify.token}`
           }
         }
       )

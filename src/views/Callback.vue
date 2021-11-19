@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>{{ this.$store.state.authorization }}</p>
+    <p>{{ this.$store.state.spotify.authorization }}</p>
     <p>{{ this.goodState }}</p>
   </div>
 </template>
@@ -20,7 +20,7 @@ export default {
       return this.params.get("state");
     },
     goodState() {
-      return this.$store.state.authState === this.state;
+      return this.$store.state.spotify.authState === this.state;
     }
   },
   created() {
@@ -34,16 +34,15 @@ export default {
   methods: {
     async getToken() {
       var form = {
-          code: this.$store.state.authorization,
-          redirect_uri: this.$store.state.redirect_uri,
+          code: this.$store.state.spotify.authorization,
+          redirect_uri: this.$store.state.spotify.redirect_uri,
           grant_type: 'authorization_code'
       };
       const data = qs.stringify(form)
 
       var authOptions = {
-        // url: 'https://accounts.spotify.com/api/token',
         headers: {
-          'Authorization': 'Basic ' + Buffer.from(`${this.$store.state.client_id}:${this.$store.state.client_secret}`, "utf-8").toString('base64'),
+          'Authorization': 'Basic ' + Buffer.from(`${this.$store.state.spotify.client_id}:${this.$store.state.spotify.client_secret}`, "utf-8").toString('base64'),
           'Content-Type': 'application/x-www-form-urlencoded'
         },
         json: true
