@@ -30,6 +30,16 @@ export default {
     }
   },
   actions: {
+    requestAuthorization(context, authState) {
+      context.commit("setAuthState", authState);
+      let scope = "user-read-private user-read-currently-playing user-read-recently-played";
+      window.location.href = "https://accounts.spotify.com/authorize?" +
+        `response_type=code&` +
+        `client_id=${context.state.client_id}&` +
+        `scope=${scope}&` +
+        `redirect_uri=${context.state.redirect_uri}&` +
+        `state=${authState}`;
+    },
     requestRefreshToken: async (context) => {
       var form = {
         refresh_token: context.state.refreshToken,
