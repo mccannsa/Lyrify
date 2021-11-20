@@ -5,7 +5,7 @@ export default {
   state: {
     client_id: "808c22385559498baedf01658e162588",
     client_secret: "3583e043798944ac9055ac6fd747e8c0",
-    redirect_uri: "http://localhost:8080/callback",
+    redirect_uri: "http://localhost:8080/spotify",
     authorization: "",
     authState: "",
     token: "",
@@ -14,7 +14,8 @@ export default {
       artists: [{
         name: ""
       }],
-      name: ""
+      name: "",
+      duration_ms: 0
     },
     displayName: ""
   },
@@ -123,13 +124,7 @@ export default {
         context.commit("setDisplayName", res.data.display_name);
       })
       .catch((err) => {
-        const oldToken = context.state.refreshToken;
-        context.dispatch("requestRefreshToken");
-        if (context.state.refreshToken !== oldToken) {
-          context.dispatch("getDisplayName");
-        } else {
-          console.error(err)
-        }
+        console.error(err)
       })
     }
   }

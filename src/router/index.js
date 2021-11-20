@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "../views/Login.vue"
-import Callback from "../views/Callback.vue"
+import Spotify from "../views/Spotify.vue"
 import Playing from "../views/Playing.vue"
 
 Vue.use(VueRouter);
@@ -10,12 +10,12 @@ const routes = [
   {
     path: "/",
     name: "Login",
-    component: Login,
+    component: Login
   },
   {
-    path: "/callback",
-    name: "callback",
-    component: Callback
+    path: "/spotify",
+    name: "spotify",
+    component: Spotify
   },
   {
     path: "/playing",

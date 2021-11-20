@@ -11,8 +11,8 @@ export default {
   name: "Login",
   methods: {
     requestAuthorization() {
-      this.$store.dispatch("requestAuthorization", this.generateRandomString(16))
-      this.$router.push("/callback")
+      this.$store.dispatch("requestAuthorization", this.generateRandomString(16));
+      this.$router.push("/spotify")
     },
     generateRandomString(length) {
       var result = "";

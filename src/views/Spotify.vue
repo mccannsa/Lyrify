@@ -1,13 +1,10 @@
 <template>
   <div>
-    <p>{{ this.$store.state.spotify.authorization }}</p>
-    <p>{{ this.goodState }}</p>
+    <span v-if="this.goodState">Logged in to Spotify. Redirecting to Lyrify...</span>
+    <span v-else>Error retrieving Spotify authorization.</span>
   </div>
 </template>
 <script>
-// import axios from "axios";
-// import qs from "qs"
-
 export default {
   computed: {
     params() {
@@ -26,7 +23,8 @@ export default {
   created() {
     if (this.goodState) {
       this.$store.commit("setAuthorization", this.code);
-      this.getToken()
+      this.getToken();
+      this.$router.push("/playing");
     } else {
       console.log("MISMATCHED STATE")
     }
@@ -34,7 +32,17 @@ export default {
   methods: {
     async getToken() {
       await this.$store.dispatch("requestToken");
-      this.$router.push("/playing");
+      await this.$store.dispatch("requestRefreshToken");
+    },
+    generateRandomString(length) {
+      var result = "";
+      var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      var charactersLength = characters.length;
+      for (var i = 0; i < length; i++) {
+        result += characters.charAt(
+          Math.floor(Math.random() * charactersLength));
+      }
+      return result;
     }
   }
 }
