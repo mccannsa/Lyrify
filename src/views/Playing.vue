@@ -1,7 +1,10 @@
 <template>
   <div>
     <p>{{ this.$store.state.displayName }}</p>
-    <p v-if="this.track"><a :href="this.lyricPage" target="_blank">{{ this.track.name }} by {{ this.track.artists[0].name }}</a></p>
+    <p v-if="this.track">
+      <span v-if="this.lyricPage"><a :href="this.lyricPage" target="_blank">{{ this.track.name }} by {{ this.track.artists[0].name }}</a></span>
+      <span v-else>{{ this.track.name }} by {{ this.track.artists[0].name }} <br/><i>Couldn't find lyrics...</i></span>
+    </p>
     <p v-else>Not playing</p>
   </div>
 </template>
@@ -44,16 +47,16 @@ export default {
     },
     async getSongLyrics() {
       if (this.track.name) {
-        await axios.get(`https://api.genius.com/search?q=${this.track.artists[0].name}%20${this.track.name}&access_token=${this.$store.state.genius.token}`,
-        {
-          // headers: {
-          //   Authorization: `Bearer ${this.$store.state.genius.token}`
-          // }
-        })
+        await axios.get(`https://api.genius.com/search?q=${this.track.artists[0].name}%20${this.track.name}&access_token=${this.$store.state.genius.token}`)
         .then((res) => {
-          console.log(res)
-          this.lyricPage = res.data.response.hits[0].result.url;
-
+          for(var hit of res.data.response.hits) {
+            if (hit.result.primary_artist.name === this.track.artists[0].name) {
+              this.lyricPage = hit.result.url;
+              break;
+            } else if (this.lyricPage) {
+              this.lyricPage = null;
+            }
+          }
         })
         .catch((err) => {
           console.error(err);
