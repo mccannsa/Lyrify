@@ -2,6 +2,7 @@
   <div>
     <p>{{ this.$store.state.displayName }}</p>
     <p v-if="this.track">
+      Currently playing: 
       <span v-if="this.lyricPage"><a :href="this.lyricPage" target="_blank">{{ this.track.name }} by {{ this.track.artists[0].name }}</a></span>
       <span v-else>{{ this.track.name }} by {{ this.track.artists[0].name }} <br/><i>Couldn't find lyrics...</i></span>
     </p>
