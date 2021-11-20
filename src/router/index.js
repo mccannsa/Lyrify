@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "../views/Login.vue"
 import Spotify from "../views/Spotify.vue"
-import Playing from "../views/Playing.vue"
+import Overview from "../views/Overview.vue"
 
 Vue.use(VueRouter);
 
@@ -18,9 +18,9 @@ const routes = [
     component: Spotify
   },
   {
-    path: "/playing",
-    name: "playing",
-    component: Playing
+    path: "/overview",
+    name: "overview",
+    component: Overview
   }
 ];
 

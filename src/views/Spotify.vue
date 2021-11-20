@@ -24,7 +24,7 @@ export default {
     if (this.goodState) {
       this.$store.commit("setAuthorization", this.code);
       this.getToken();
-      this.$router.push("/playing");
+      this.$router.push("/overview");
     } else {
       console.log("MISMATCHED STATE")
     }
