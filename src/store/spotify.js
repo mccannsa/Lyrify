@@ -17,7 +17,8 @@ export default {
       name: "",
       duration_ms: 0
     },
-    displayName: ""
+    displayName: "",
+    getRecentlyPlayed: []
   },
   mutations: {
     setAuthorization: (state, auth) => {
@@ -37,6 +38,14 @@ export default {
     },
     setDisplayName: (state, n) => {
       state.displayName = n;
+    },
+    setRecentlyPlayed: (state, r) => {
+      state.recentlyPlayed = r
+    }
+  },
+  getters: {
+    getRecentlyPlayed(state) {
+      return state.recentlyPlayed;
     }
   },
   actions: {
@@ -118,10 +127,29 @@ export default {
     getDisplayName: async (context) => {
       await axios.get("https://api.spotify.com/v1/me",
       {
-        "Authorization": "Bearer " + `${context.state.token}`
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + `${context.state.token}`
+        }
       })
       .then((res) => {
         context.commit("setDisplayName", res.data.display_name);
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+    },
+    async requestRecentlyPlayed(context) {
+      await axios.get("https://api.spotify.com/v1/me/player/recently-played",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + `${context.state.token}`
+        },
+        json: true
+      })
+      .then((res) => {
+        context.commit("setRecentlyPlayed", res.data.items);
       })
       .catch((err) => {
         console.error(err)

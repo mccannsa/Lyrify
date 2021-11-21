@@ -20,10 +20,10 @@ export default {
       return this.$store.state.spotify.authState === this.state;
     }
   },
-  created() {
+  async created() {
     if (this.goodState) {
       this.$store.commit("setAuthorization", this.code);
-      this.getToken();
+      await this.getToken();
       this.$router.push("/overview");
     } else {
       console.log("MISMATCHED STATE")

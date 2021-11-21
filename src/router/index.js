@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Login from "../views/Login.vue"
 import Spotify from "../views/Spotify.vue"
 import Overview from "../views/Overview.vue"
+import store from "../store"
 
 Vue.use(VueRouter);
 
@@ -20,7 +21,11 @@ const routes = [
   {
     path: "/overview",
     name: "overview",
-    component: Overview
+    component: Overview,
+    beforeEnter: async (to, from, next) => {
+      await store.dispatch("requestRecentlyPlayed");
+      next();
+    }
   }
 ];
 
