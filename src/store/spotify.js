@@ -150,6 +150,7 @@ export default {
       })
       .then((res) => {
         context.commit("setRecentlyPlayed", res.data.items);
+        context.dispatch("getLyrics");
       })
       .catch((err) => {
         console.error(err)

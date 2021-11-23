@@ -52,7 +52,7 @@ export default {
       await this.$store.dispatch("getCurrentlyPlaying");
     },
     async getSongLyrics() {
-      if (this.track.name) {
+      if (this.track) {
         await axios.get(`https://api.genius.com/search?q=${this.track.artists[0].name}%20${this.track.name}&access_token=${this.$store.state.genius.token}`)
         .then((res) => {
           for(var hit of res.data.response.hits) {
