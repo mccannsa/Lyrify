@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Login from "../views/Login.vue"
 import Spotify from "../views/Spotify.vue"
 import Overview from "../views/Overview.vue"
+import Lyrics from "../views/Lyrics.vue"
 import store from "../store"
 
 Vue.use(VueRouter);
@@ -26,6 +27,12 @@ const routes = [
       await store.dispatch("requestRecentlyPlayed");
       next();
     }
+  },
+  {
+    path: "/lyrics/:artist/:track",
+    name: "lyrics",
+    component: Lyrics,
+    props: true
   }
 ];
 

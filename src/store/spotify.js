@@ -18,7 +18,7 @@ export default {
       duration_ms: 0
     },
     displayName: "",
-    getRecentlyPlayed: []
+    recentlyPlayed: []
   },
   mutations: {
     setAuthorization: (state, auth) => {
@@ -149,8 +149,7 @@ export default {
         json: true
       })
       .then((res) => {
-        context.commit("setRecentlyPlayed", res.data.items);
-        context.dispatch("getLyrics");
+        context.dispatch("getLyrics", res.data.items);
       })
       .catch((err) => {
         console.error(err)
