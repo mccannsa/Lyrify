@@ -18,7 +18,8 @@ export default {
       duration_ms: 0
     },
     displayName: "",
-    recentlyPlayed: []
+    recentlyPlayed: [],
+    topTracks: []
   },
   mutations: {
     setAuthorization: (state, auth) => {
@@ -41,17 +42,23 @@ export default {
     },
     setRecentlyPlayed: (state, r) => {
       state.recentlyPlayed = r
+    },
+    setTopTracks: (state, t) => {
+      state.topTracks = t;
     }
   },
   getters: {
     getRecentlyPlayed(state) {
       return state.recentlyPlayed;
+    },
+    getTopTracks(state) {
+      return state.topTracks;
     }
   },
   actions: {
     requestAuthorization(context, authState) {
       context.commit("setAuthState", authState);
-      let scope = "user-read-private user-read-currently-playing user-read-recently-played";
+      let scope = "user-read-private user-read-currently-playing user-read-recently-played user-top-read";
       window.location.href = "https://accounts.spotify.com/authorize?" +
         `response_type=code&` +
         `client_id=${context.state.client_id}&` +
@@ -149,10 +156,26 @@ export default {
         json: true
       })
       .then((res) => {
-        context.dispatch("getLyrics", res.data.items);
+        context.dispatch("getLyrics", { tracks: res.data.items, type: "recent" });
       })
       .catch((err) => {
         console.error(err)
+      })
+    },
+    async requestTopTracks(context) {
+      await axios.get("https://api.spotify.com/v1/me/top/tracks?time_range=short_term",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + `${context.state.token}`
+        },
+        json: true
+      })
+      .then((res) => {
+        context.dispatch("getLyrics", { tracks: res.data.items, type: "top" });
+      })
+      .catch((err) => {
+        console.error(err);
       })
     }
   }

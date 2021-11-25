@@ -19,21 +19,31 @@ export default {
     }
   },
   actions: {
-    async getLyrics(context, played) {
-      for await (let t of played) {
-        await axios.get(`https://api.genius.com/search?q=${t.track.artists[0].name}%20${t.track.name}&access_token=${context.state.token}`)
-        .then((res) => {
-          for (var hit of res.data.response.hits) {
-            if (hit.result.primary_artist.name === t.track.artists[0].name) {
-              t.lyrics = hit.result.url;
-              break;
+    async getLyrics(context, payload) {
+      for await (let t of payload.tracks) {
+        if (payload.type === "recent") {
+          await axios.get(`https://api.genius.com/search?q=${t.track.artists[0].name}%20${t.track.name}&access_token=${context.state.token}`)
+          .then((res) => {
+            for (var hit of res.data.response.hits) {
+              if (hit.result.primary_artist.name === t.track.artists[0].name) {
+                t.lyrics = hit.result.url;
+                break;
+              }
             }
-          }
-          context.commit("setRecentlyPlayed", played);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+            context.commit("setRecentlyPlayed", payload.tracks);
+          })
+        } else if (payload.type === "top") {
+          await axios.get(`https://api.genius.com/search?q=${t.artists[0].name}%20${t.name}&access_token=${context.state.token}`)
+          .then((res) => {
+            for (var hit of res.data.response.hits) {
+              if (hit.result.primary_artist.name === t.artists[0].name) {
+                t.lyrics = hit.result.url;
+                break;
+              }
+            }
+            context.commit("setTopTracks", payload.tracks);
+          });
+        }
       }
     },
     async getSongLyrics(context, payload) {

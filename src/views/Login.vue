@@ -27,7 +27,7 @@ export default {
   },
   beforeCreate() {
     if (this.$store.state.spotify.token !== "") {
-      this.$router.push("/playing");
+      this.$router.push("/overview");
     }
   }
 }

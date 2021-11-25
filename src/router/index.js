@@ -25,6 +25,7 @@ const routes = [
     component: Overview,
     beforeEnter: async (to, from, next) => {
       await store.dispatch("requestRecentlyPlayed");
+      await store.dispatch("requestTopTracks");
       next();
     }
   },
