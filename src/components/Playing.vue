@@ -88,7 +88,7 @@ export default {
 
 .playing-flex-container {
   border: 2px solid;
-  border-radius: 1em;
+  border-radius: 0.5em;
   display: flex;
   flex-direction: row;
   width: 70%;
