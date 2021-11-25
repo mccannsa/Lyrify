@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Playing />
+    <Playing v-if="this.hasAuthorization"/>
     <router-view />
   </div>
 </template>
@@ -9,6 +9,11 @@ import Playing from "./components/Playing.vue"
 export default {
   components: {
     Playing
+  },
+  computed: {
+    hasAuthorization() {
+      return this.$store.getters.getAuthorization !== "" ? true : false;
+    }
   }
 }
 </script>

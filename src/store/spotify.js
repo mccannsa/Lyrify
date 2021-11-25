@@ -56,6 +56,9 @@ export default {
     },
     getTopTracks(state) {
       return state.topTracks;
+    },
+    getAuthorization(state) {
+      return state.authorization;
     }
   },
   actions: {
