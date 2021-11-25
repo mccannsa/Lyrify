@@ -52,6 +52,7 @@ export default {
 .lyric-flex-container {
   display: flex;
   flex-direction: row;
+  max-width: 35em;
   width: fit-content;
   margin: 2em auto;
 }
