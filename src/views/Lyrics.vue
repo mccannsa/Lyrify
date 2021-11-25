@@ -1,9 +1,18 @@
 <template>
   <div>
-    <div>
-      <p>{{ this.track }} by {{ this.artist }} <button @click="playTrack()">Play</button> <button @click="openLyrics()" :disabled="!this.url">Open Lyrics</button></p>
+    <div class="lyric-flex-container">
+      <img :src="this.img" width="150" height="150" alt="Album Art">
+      <div>
+        <p class="head">
+          <strong>{{ this.track }}</strong><br>
+          by <em>{{ this.artist }}</em>
+        </p>
+        <div class="buttons">
+          <button @click="playTrack()">Play</button>
+          <button @click="openLyrics()" :disabled="!this.url">Open Lyrics</button>
+        </div>
+      </div>
     </div>
-    <p v-if="!this.url"><i>Lyric page not found</i></p>
     <button @click="goBack()">Back</button>
   </div>
 </template>
@@ -12,7 +21,8 @@ export default {
   props: {
     track: null,
     artist: null,
-    uri: null
+    uri: null,
+    img: null
   },
   data() {
     return {
@@ -38,3 +48,27 @@ export default {
   }
 }
 </script>
+<style>
+.lyric-flex-container {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  margin: 2em auto;
+}
+
+.head {
+  text-align: left;
+  margin-left: 1em;
+  margin-top: 0;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  margin: 1em;
+}
+
+img {
+  border: 2px solid black;
+}
+</style>

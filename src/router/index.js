@@ -30,7 +30,7 @@ const routes = [
     }
   },
   {
-    path: "/lyrics/:artist/:track/:uri",
+    path: "/lyrics/:artist/:track/:uri/:img",
     name: "lyrics",
     component: Lyrics,
     props: true

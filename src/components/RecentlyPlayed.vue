@@ -4,7 +4,7 @@
     <span v-if="this.recentlyPlayed.length > 0">
       <ul class="recent-list">
         <li class="item" v-for="t in recentlyPlayed" :key="t.played_at">
-          <span class="link" @click="link(t.track.name, t.track.artists[0].name, t.track.uri)">{{ t.track.name }} by {{ t.track.artists[0].name }}</span>
+          <span class="link" @click="link(t.track.name, t.track.artists[0].name, t.track.uri, t.track.album.images[0].url)">{{ t.track.name }} by {{ t.track.artists[0].name }}</span>
         </li>
       </ul>
     </span>
@@ -20,8 +20,8 @@ export default {
     }
   },
   methods: {
-    link(track, artist, uri) {
-      this.$router.push({ name: "lyrics", params: { track: track, artist: artist, uri: uri }});
+    link(track, artist, uri, img) {
+      this.$router.push({ name: "lyrics", params: { track: track, artist: artist, uri: uri, img: img }});
     }
   },
   async beforeCreate() {
