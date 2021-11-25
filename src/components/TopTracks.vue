@@ -4,7 +4,7 @@
     <span v-if="this.topTracks.length > 0">
       <ul class="top-list">
         <li class="item" v-for="t in topTracks" :key="t.played_at">
-          <span class="link" @click="link(t.name, t.artists[0].name)">{{ t.name }} by {{ t.artists[0].name }}</span>
+          <span class="link" @click="link(t.name, t.artists[0].name, t.uri)">{{ t.name }} by {{ t.artists[0].name }}</span>
         </li>
       </ul>
     </span>
@@ -20,8 +20,8 @@ export default {
     }
   },
   methods: {
-    link(track, artist) {
-      this.$router.push({ name: "lyrics", params: { track: track, artist: artist }});
+    link(track, artist, uri) {
+      this.$router.push({ name: "lyrics", params: { track: track, artist: artist, uri: uri }});
     }
   },
   async beforeCreate() {

@@ -64,7 +64,7 @@ export default {
   actions: {
     requestAuthorization(context, authState) {
       context.commit("setAuthState", authState);
-      let scope = "user-read-private user-read-currently-playing user-read-recently-played user-top-read";
+      let scope = "user-read-private user-read-currently-playing user-read-recently-played user-top-read user-modify-playback-state";
       window.location.href = "https://accounts.spotify.com/authorize?" +
         `response_type=code&` +
         `client_id=${context.state.client_id}&` +
@@ -182,6 +182,20 @@ export default {
       })
       .catch((err) => {
         console.error(err);
+      })
+    },
+    async playTrack(context, payload) {
+      console.log({uris: [payload.uri]})
+      await axios.put("https://api.spotify.com/v1/me/player/play", { uris: [payload.uri] },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + `${context.state.token}`
+        },
+        json: true
+      })
+      .catch((err) => {
+        console.error(err)
       })
     }
   }

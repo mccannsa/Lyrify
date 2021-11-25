@@ -1,8 +1,9 @@
 <template>
   <div>
-    <p>{{ this.track }} by {{ this.artist }}</p>
-    <p v-if="this.url" ><i>Redirecting to lyric page...</i></p>
-    <p v-else><i>Lyric page not found</i></p>
+    <div>
+      <p>{{ this.track }} by {{ this.artist }} <button @click="playTrack()">Play</button> <button @click="openLyrics()" :disabled="!this.url">Open Lyrics</button></p>
+    </div>
+    <p v-if="!this.url"><i>Lyric page not found</i></p>
     <button @click="goBack()">Back</button>
   </div>
 </template>
@@ -10,7 +11,8 @@
 export default {
   props: {
     track: null,
-    artist: null
+    artist: null,
+    uri: null
   },
   data() {
     return {
@@ -20,14 +22,19 @@ export default {
   methods: {
     goBack() {
       this.$router.push("/overview");
+    },
+    async playTrack() {
+      await this.$store.dispatch("playTrack", { uri: this.uri });
+    },
+    async openLyrics() {
+      if (this.url) {
+        window.open(this.url, "_blank");
+      }
     }
   },
   async beforeMount() {
     await this.$store.dispatch("getSongLyrics", { track: this.track, artist: this.artist });
     this.url = this.$store.getters.getLyricsPage;
-    if (this.url) {
-      window.open(this.url, "_blank");
-    }
   }
 }
 </script>
