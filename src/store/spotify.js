@@ -48,6 +48,9 @@ export default {
     }
   },
   getters: {
+    getDisplayName(state) {
+      return state.displayName;
+    },
     getRecentlyPlayed(state) {
       return state.recentlyPlayed;
     },
@@ -131,7 +134,7 @@ export default {
       })
       .catch((err) => {console.error(err)})
     },
-    getDisplayName: async (context) => {
+    requestDisplayName: async (context) => {
       await axios.get("https://api.spotify.com/v1/me",
       {
         headers: {

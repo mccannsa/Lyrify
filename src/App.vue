@@ -1,12 +1,21 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>
-    </div>
+    <p>Hello, {{ this.displayName }}</p>
     <router-view />
   </div>
 </template>
-
+<script>
+export default {
+  computed: {
+    displayName() {
+      return this.$store.getters.getDisplayName;
+    }
+  },
+  async beforeCreate() {
+    this.$store.dispatch("requestDisplayName");
+  }
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
