@@ -73,7 +73,7 @@ export default {
 }
 
 #user {
-  margin-right: 5px;
+  margin-right: 0.25em;
 }
 
 #playing {
