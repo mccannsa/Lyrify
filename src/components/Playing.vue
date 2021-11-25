@@ -3,7 +3,7 @@
     <p>{{ this.$store.state.displayName }}</p>
     <p v-if="this.track">
       Currently playing:
-      <span class="link" @click="link(track.name, track.artists[0].name)">{{ this.desc }}</span>
+      <span id="playing" @click="link(track.name, track.artists[0].name)">{{ this.desc }}</span>
     </p>
     <p v-else>Not playing</p>
   </div>
@@ -52,3 +52,14 @@ export default {
   }
 }
 </script>
+<style>
+#playing {
+  text-decoration: underline;
+}
+
+#playing:hover {
+  color: forestgreen;
+  background-color: rgba(153, 255, 153, 0.25);
+  cursor: pointer;
+}
+</style>

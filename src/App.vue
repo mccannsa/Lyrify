@@ -1,19 +1,11 @@
 <template>
   <div id="app">
-    <p>Hello, {{ this.displayName }}</p>
     <router-view />
   </div>
 </template>
 <script>
 export default {
-  computed: {
-    displayName() {
-      return this.$store.getters.getDisplayName;
-    }
-  },
-  async beforeCreate() {
-    this.$store.dispatch("requestDisplayName");
-  }
+  
 }
 </script>
 <style>
@@ -22,7 +14,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
 
 #nav {
@@ -36,5 +27,9 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+body {
+  background-color:rgb(243, 243, 243);
 }
 </style>

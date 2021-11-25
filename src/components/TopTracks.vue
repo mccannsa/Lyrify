@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h3>Top tracks this past month</h3>
+    <h3 id="topHeader">Top tracks this past month</h3>
     <span v-if="this.topTracks.length > 0">
-      <ul>
-        <li v-for="t in topTracks" :key="t.played_at">
+      <ul class="top-list">
+        <li class="item" v-for="t in topTracks" :key="t.played_at">
           <span class="link" @click="link(t.name, t.artists[0].name)">{{ t.name }} by {{ t.artists[0].name }}</span>
         </li>
       </ul>
@@ -41,12 +41,26 @@ export default {
 }
 </script>
 <style>
+#topHeader {
+  text-align: left;
+}
+
+.top-list {
+  text-align: left;
+}
+
+.item {
+  max-width: 75%;
+}
+
 .link {
   text-decoration: underline;
+  max-width: 25%;
 }
 
 .link:hover {
   color: forestgreen;
+  background-color: rgba(153, 255, 153, 0.25);
   cursor: pointer;
 }
 </style>

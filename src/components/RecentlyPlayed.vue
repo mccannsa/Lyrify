@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h3>20 most recently played tracks</h3>
+    <h3 id="recentHeader">20 most recently played tracks</h3>
     <span v-if="this.recentlyPlayed.length > 0">
-      <ul>
-        <li v-for="t in recentlyPlayed" :key="t.played_at">
+      <ul class="recent-list">
+        <li class="item" v-for="t in recentlyPlayed" :key="t.played_at">
           <span class="link" @click="link(t.track.name, t.track.artists[0].name)">{{ t.track.name }} by {{ t.track.artists[0].name }}</span>
         </li>
       </ul>
@@ -41,12 +41,26 @@ export default {
 }
 </script>
 <style>
+#recentHeader {
+  text-align: left;
+}
+
+.recent-list {
+  text-align: left;
+}
+
+.item {
+  max-width: 75%;
+}
+
 .link {
   text-decoration: underline;
+  max-width: 25%;
 }
 
 .link:hover {
   color: forestgreen;
+  background-color: rgba(153, 255, 153, 0.25);
   cursor: pointer;
 }
 </style>
