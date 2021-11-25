@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.push("/overview");
+      this.$router.go(-1);
     },
     async playTrack() {
       await this.$store.dispatch("playTrack", { uri: this.uri });
