@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <p>{{ this.$store.state.displayName }}</p>
+  <div class="flex-container">
+    <p id="user">Hello, <span id="displayName" @click="overview()">{{ this.displayName }}</span>.</p>
     <p v-if="this.track">
       Currently playing:
       <span id="playing" @click="link(track.name, track.artists[0].name)">{{ this.desc }}</span>
@@ -23,9 +23,15 @@ export default {
       timer: -1
     }
   },
+  async beforeCreate() {
+    this.$store.dispatch("requestDisplayName");
+  },
   computed: {
     desc() {
       return `${this.track.name} by ${this.track.artists[0].name}`;
+    },
+    displayName() {
+      return this.$store.getters.getDisplayName;
     }
   },
   async created() {
@@ -48,11 +54,28 @@ export default {
     },
     link(track, artist) {
       this.$router.push({ name: "lyrics", params: { track: track, artist: artist }});
+    },
+    overview() {
+      this.$router.push("/overview");
     }
   }
 }
 </script>
 <style>
+#displayName {
+  font-weight: bold;
+}
+
+#displayName:hover {
+  color: forestgreen;
+  background-color: rgba(153, 255, 153, 0.25);
+  cursor: pointer;
+}
+
+#user {
+  margin-right: 5px;
+}
+
 #playing {
   text-decoration: underline;
 }

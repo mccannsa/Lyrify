@@ -1,11 +1,15 @@
 <template>
   <div id="app">
+    <Playing />
     <router-view />
   </div>
 </template>
 <script>
+import Playing from "./components/Playing.vue"
 export default {
-  
+  components: {
+    Playing
+  }
 }
 </script>
 <style>
