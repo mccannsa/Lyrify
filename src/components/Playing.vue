@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-container">
+  <div class="playing-flex-container">
     <p id="user">Hello, <span id="displayName" @click="overview()">{{ this.displayName }}</span>.</p>
     <p v-if="this.track">
       You're currently listening to:
@@ -84,5 +84,17 @@ export default {
   color: forestgreen;
   background-color: rgba(153, 255, 153, 0.25);
   cursor: pointer;
+}
+
+.playing-flex-container {
+  border: 2px solid;
+  border-radius: 1em;
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  margin: 0 auto;
+  padding-left: 1em;
+  padding-right: 1em;
+  background-color: honeydew;
 }
 </style>
