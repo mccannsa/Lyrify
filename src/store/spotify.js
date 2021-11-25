@@ -19,7 +19,8 @@ export default {
     },
     displayName: "",
     recentlyPlayed: [],
-    topTracks: []
+    topTracks: [],
+    searchResults: []
   },
   mutations: {
     setAuthorization: (state, auth) => {
@@ -45,6 +46,9 @@ export default {
     },
     setTopTracks: (state, t) => {
       state.topTracks = t;
+    },
+    setSearchResults: (state, r) => {
+      state.searchResults = r;
     }
   },
   getters: {
@@ -59,6 +63,9 @@ export default {
     },
     getAuthorization(state) {
       return state.authorization;
+    },
+    getSearchResults(state) {
+      return state.searchResults;
     }
   },
   actions: {
@@ -197,6 +204,31 @@ export default {
       .catch((err) => {
         console.error(err)
       })
+    },
+    async searchForTrack(context, payload) {
+      let search = "";
+      if (payload.artist && payload.track) {
+        search = `${payload.artist}%20${payload.track}`;
+      } else if (payload.artist) {
+        search = payload.artist;
+      } else if (payload.track) {
+        search = payload.track;
+      } else return;
+      
+      await axios.get(`https://api.spotify.com/v1/search?type=track&query=${search}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + `${context.state.token}`
+        },
+        json: true
+      })
+      .then(res => {
+        context.commit("setSearchResults", res.data.tracks.items);
+      })
+      .catch(err => {
+        console.error(err);
+      });
     }
   }
 }

@@ -47,6 +47,7 @@ export default {
 
 .recent-list {
   text-align: left;
+  width: 75%;
 }
 
 .item {

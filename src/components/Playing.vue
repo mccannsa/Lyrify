@@ -1,11 +1,18 @@
 <template>
   <div class="playing-flex-container">
-    <p id="user">Hello, <span id="displayName" @click="overview()">{{ this.displayName }}</span>.</p>
-    <p v-if="this.track">
-      You're listening to:
-      <span id="playing" @click="link(track.name, track.artists[0].name, track.uri, track.album.images[0].url)">{{ this.desc }}</span>
-    </p>
-    <p v-else>Not playing</p>
+    <div class="playing">
+      <p id="user">Hello, <span id="displayName" @click="overview()">{{ this.displayName }}</span>.</p>
+      <p v-if="this.track">
+        You're listening to:
+        <span id="playing" @click="link(track.name, track.artists[0].name, track.uri, track.album.images[0].url)">{{ this.desc }}</span>
+      </p>
+      <p v-else>Not playing</p>
+    </div>
+    <div class="search">
+      Artist: <input type="text" cols="5" v-model="search.artist" />
+      Track: <input type="text" cols="5" v-model="search.track" />
+      <button @click="doSearch(search.track, search.artist)">Search</button>
+    </div>
   </div>
 </template>
 <script>
@@ -19,8 +26,11 @@ export default {
         name: null,
         duration_ms: -1
       },
-      lyricPage: null,
-      timer: -1
+      timer: -1,
+      search: {
+        track: null,
+        artist: null
+      }
     }
   },
   async beforeCreate() {
@@ -57,6 +67,12 @@ export default {
     },
     overview() {
       this.$router.push("/overview");
+    },
+    doSearch(track, artist) {
+      this.search.track = null;
+      this.search.artist = null;
+      this.$store.dispatch("searchForTrack", { track: track, artist: artist });
+      this.$router.push({ name: "search", params: { track: track, artist: artist }});
     }
   }
 }
@@ -96,5 +112,19 @@ export default {
   padding-left: 1em;
   padding-right: 1em;
   background-color: honeydew;
+}
+
+.playing {
+  display: flex;
+  flex-direction: row;
+  max-width: 30em;
+  width: fit-content;
+}
+
+.search {
+  width: fit-content;
+  margin-right: 0;
+  margin-left: auto;
+  margin-top: 1em;
 }
 </style>

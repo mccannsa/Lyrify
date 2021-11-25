@@ -47,6 +47,7 @@ export default {
 
 .top-list {
   text-align: left;
+  width: 75%;
 }
 
 .item {

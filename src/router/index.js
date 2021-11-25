@@ -4,6 +4,7 @@ import Login from "../views/Login.vue"
 import Spotify from "../views/Spotify.vue"
 import Overview from "../views/Overview.vue"
 import Lyrics from "../views/Lyrics.vue"
+import Search from "../views/Search.vue"
 import store from "../store"
 
 Vue.use(VueRouter);
@@ -33,6 +34,12 @@ const routes = [
     path: "/lyrics/:artist/:track/:uri/:img",
     name: "lyrics",
     component: Lyrics,
+    props: true
+  },
+  {
+    path: "/search/:artist/:track",
+    name: "search",
+    component: Search,
     props: true
   }
 ];
