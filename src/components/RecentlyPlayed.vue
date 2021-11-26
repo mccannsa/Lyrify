@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="rp">
     <h3 id="recentHeader">20 most recently played tracks</h3>
     <span v-if="this.recentlyPlayed.length > 0">
       <ul class="recent-list">
@@ -47,21 +47,26 @@ export default {
 
 .recent-list {
   text-align: left;
-  width: 75%;
+  /* width: 75%; */
 }
 
 .item {
-  max-width: 75%;
+  /* max-width: 75%; */
 }
 
 .link {
   text-decoration: underline;
-  max-width: 25%;
 }
 
 .link:hover {
   color: forestgreen;
   background-color: rgba(153, 255, 153, 0.25);
   cursor: pointer;
+}
+
+#rp {
+  margin-top: 2em;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 </style>

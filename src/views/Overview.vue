@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="flex-container">
-      <RecentlyPlayed />
-      <TopTracks />
+      <RecentlyPlayed id="rp-comp"/>
+      <TopTracks id="tt-comp"/>
     </div>
   </div>
 </template>
@@ -22,6 +22,18 @@ export default {
   display: flex;
   flex-direction: row;
   width: 70%;
+  margin: 0 auto;
+}
+
+#rp-comp {
+  max-width: 50%;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+#tt-comp {
+  max-width: 50%;
+  width: fit-content;
   margin: 0 auto;
 }
 </style>

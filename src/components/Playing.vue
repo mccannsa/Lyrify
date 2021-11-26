@@ -4,7 +4,7 @@
       <p id="user">Hello, <span id="displayName" @click="overview()">{{ this.displayName }}</span>.</p>
       <p v-if="this.track">
         You're listening to:
-        <span id="playing" @click="link(track.name, track.artists[0].name, track.uri, track.album.images[0].url)">{{ this.desc }}</span>
+        <span id="playing" @click="link(track.name, track.artists[0].name, track.uri, track.album.images[0].url)">{{ this.desc | ellipsis }}</span>
       </p>
       <p v-else>Not playing</p>
     </div>
@@ -73,6 +73,15 @@ export default {
       this.search.artist = null;
       this.$store.dispatch("searchForTrack", { track: track, artist: artist });
       this.$router.push({ name: "search", params: { track: track, artist: artist }});
+    }
+  },
+  filters: {
+    ellipsis: (value) => {
+      if (value.length > 30) {
+        return value.slice(0,27) + "...";
+      } else {
+        return value;
+      }
     }
   }
 }
