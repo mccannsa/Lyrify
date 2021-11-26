@@ -9,9 +9,8 @@
       <p v-else>Not playing</p>
     </div>
     <div class="search">
-      Artist: <input type="text" cols="5" v-model="search.artist" />
-      Track: <input type="text" cols="5" v-model="search.track" />
-      <button @click="doSearch(search.track, search.artist)">Search</button>
+      <input type="text" cols="5" v-model="search" />
+      <button @click="doSearch()">Search</button>
     </div>
   </div>
 </template>
@@ -27,10 +26,7 @@ export default {
         duration_ms: -1
       },
       timer: -1,
-      search: {
-        track: null,
-        artist: null
-      }
+      search: null
     }
   },
   async beforeCreate() {
@@ -68,11 +64,10 @@ export default {
     overview() {
       this.$router.push("/overview");
     },
-    doSearch(track, artist) {
-      this.search.track = null;
-      this.search.artist = null;
-      this.$store.dispatch("searchForTrack", { track: track, artist: artist });
-      this.$router.push({ name: "search", params: { track: track, artist: artist }});
+    doSearch() {
+      this.$store.dispatch("searchForTrack", { search: this.search });
+      this.$router.push({ name: "search", params: { search: this.search }});
+      this.search = null;
     }
   },
   filters: {

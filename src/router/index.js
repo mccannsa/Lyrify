@@ -37,7 +37,7 @@ const routes = [
     props: true
   },
   {
-    path: "/search/:artist/:track",
+    path: "/search/:search",
     name: "search",
     component: Search,
     props: true

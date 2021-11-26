@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 id="searchHeader">Search Results for: {{ this.artist }} + {{ this.track }}</h3>
+    <h3 id="searchHeader">Search Results for: {{ this.search }}</h3>
     <span v-if="this.searchResults.length > 0">
       <ul class="search-list">
         <li class="item" v-for="t in searchResults" :key="t.id">
@@ -15,8 +15,7 @@
 <script>
 export default {
   props: {
-    track: null,
-    artist: null
+    search: null
   },
   data() {
     return {

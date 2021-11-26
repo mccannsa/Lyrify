@@ -192,7 +192,6 @@ export default {
       })
     },
     async playTrack(context, payload) {
-      console.log({uris: [payload.uri]})
       await axios.put("https://api.spotify.com/v1/me/player/play", { uris: [payload.uri] },
       {
         headers: {
@@ -206,16 +205,7 @@ export default {
       })
     },
     async searchForTrack(context, payload) {
-      let search = "";
-      if (payload.artist && payload.track) {
-        search = `${payload.artist}%20${payload.track}`;
-      } else if (payload.artist) {
-        search = payload.artist;
-      } else if (payload.track) {
-        search = payload.track;
-      } else return;
-      
-      await axios.get(`https://api.spotify.com/v1/search?type=track&query=${search}`,
+      await axios.get(`https://api.spotify.com/v1/search?type=track&query=${payload.search}`,
       {
         headers: {
           "Content-Type": "application/json",
