@@ -72,8 +72,8 @@ export default {
   },
   filters: {
     ellipsis: (value) => {
-      if (value.length > 30) {
-        return value.slice(0,27) + "...";
+      if (value.length > 70) {
+        return value.slice(0,67) + "...";
       } else {
         return value;
       }
@@ -121,7 +121,7 @@ export default {
 .playing {
   display: flex;
   flex-direction: row;
-  max-width: 30em;
+  max-width: 50em;
   width: fit-content;
 }
 
