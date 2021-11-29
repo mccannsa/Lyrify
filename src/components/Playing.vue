@@ -29,9 +29,6 @@ export default {
       search: null
     }
   },
-  async beforeCreate() {
-    this.$store.dispatch("requestDisplayName");
-  },
   computed: {
     desc() {
       return `${this.track.name} by ${this.track.artists[0].name}`;

@@ -27,6 +27,7 @@ const routes = [
     beforeEnter: async (to, from, next) => {
       await store.dispatch("requestRecentlyPlayed");
       await store.dispatch("requestTopTracks");
+      await store.dispatch("requestDisplayName");
       next();
     }
   },
