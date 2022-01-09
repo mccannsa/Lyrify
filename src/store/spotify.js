@@ -5,7 +5,7 @@ export default {
   state: {
     client_id: "808c22385559498baedf01658e162588",
     client_secret: "3583e043798944ac9055ac6fd747e8c0",
-    redirect_uri: "http://tender-noether-2faae6.netlify.app/spotify",
+    redirect_uri: "https://tender-noether-2faae6.netlify.app/spotify",
     authorization: "",
     authState: "",
     token: "",
